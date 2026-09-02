@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    branches: ["main"]
+
+permissions: {} # Each job defines its own permissions explicitly
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: write # Required to create release
+      pull-requests: write # Required to create PR
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v7
+        with:
+          # Fetch all history for all branches and tags so that changesets can
+          # compare against the correct base branch
+          fetch-depth: 0
+
+      - name: Set up pnpm package manager
+        uses: pnpm/setup@v2
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Create pull request for version bump and publish to npm
+        uses: changesets/action@v2
+        with:
+          publish-script: pnpm stage publish
+          commit-message: "chore(release): version packages"
+          pr-title: "chore(release): version packages"
+          create-github-releases: true
+          push-git-tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

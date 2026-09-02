@@ -1,0 +1,11 @@
+# Dependency Resolution (https://pnpm.io/settings#dependency-resolution)
+minimumReleaseAge: 1440 # 1 day in minutes
+minimumReleaseAgeStrict: true
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 43200 # 30 days in minutes
+blockExoticSubdeps: true
+
+# Build settings (https://pnpm.io/settings#build-settings)
+allowBuilds:
+  esbuild: false
+  unix-dgram: false

@@ -1,0 +1,31 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // Type Checking
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
+
+    // Modules
+    "module": "nodenext",
+    "noUncheckedSideEffectImports": true,
+    "types": ["node"],
+
+    // Emit
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // Interop Constraints
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+
+    // Language and Environment
+    "lib": ["esnext"],
+    "moduleDetection": "force",
+    "target": "esnext",
+
+    // Completeness
+    "skipLibCheck": true
+  }
+}

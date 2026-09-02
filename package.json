@@ -1,0 +1,50 @@
+{
+  "name": "netlify-plugin-emsdk",
+  "version": "0.0.0",
+  "description": "",
+  "homepage": "https://github.com/jeremy-code/netlify-plugin-emsdk#readme",
+  "bugs": "https://github.com/jeremy-code/netlify-plugin-emsdk/issues",
+  "license": "MIT",
+  "author": "Jeremy Nguyen <hi@jeremy.ng> (https://jeremy.ng)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremy-code/netlify-plugin-emsdk.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json",
+    "./manifest.yml": "./dist/manifest.yml"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.1",
+    "@netlify/build": "^36.4.2",
+    "@types/node": "^26.4.1",
+    "oxfmt": "^0.66.0",
+    "oxlint": "^1.81.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "tsdown": "^0.22.14",
+    "typescript": "^7.0.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.24.0",
+      "onFail": "download"
+    },
+    "runtime": {
+      "name": "node",
+      "version": "^24.20.0",
+      "onFail": "download"
+    }
+  }
+}

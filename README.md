@@ -10,6 +10,8 @@
 
 [![GitHub Actions][github-actions-badge]][github-actions] [![License][license-badge]](LICENSE) [![NPM version][npm-version-badge]][npm-package]
 
+Netlify build plugin that installs Emscripten emsdk.
+
 ## Installation
 
 ```shell

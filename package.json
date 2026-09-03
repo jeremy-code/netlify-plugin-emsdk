@@ -1,7 +1,13 @@
 {
   "name": "netlify-plugin-emsdk",
   "version": "0.0.0",
-  "description": "",
+  "description": "Netlify build plugin for Emscripten emsdk",
+  "keywords": [
+    "emscripten",
+    "emsdk",
+    "netlify",
+    "netlify-plugin"
+  ],
   "homepage": "https://github.com/jeremy-code/netlify-plugin-emsdk#readme",
   "bugs": "https://github.com/jeremy-code/netlify-plugin-emsdk/issues",
   "license": "MIT",

@@ -37,13 +37,17 @@ const plugin = {
         emsdkFolder,
         "--strip-components=1",
       ]);
-      await utils.cache.save(emsdkFolder);
     }
 
     netlifyConfig.build.environment["EMSDK"] = emsdkFolder;
 
     await utils.run(`${emsdkFolder}/emsdk`, ["update"]);
     await utils.run(`${emsdkFolder}/emsdk`, ["install", inputs.version]);
+
+    if (!cacheHit) {
+      await utils.cache.save(emsdkFolder);
+    }
+
     await utils.run(`${emsdkFolder}/emsdk`, ["activate", inputs.version]);
 
     const env = await utils.run(`${emsdkFolder}/emsdk`, ["construct_env"]);

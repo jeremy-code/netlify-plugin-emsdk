@@ -1,5 +1,11 @@
 # netlify-plugin-emsdk
 
+## 0.0.3
+
+### Patch Changes
+
+- 6248827: chore: cache emsdk folder after emsdk installs tools
+
 ## 0.0.2
 
 ### Patch Changes

@@ -25,6 +25,9 @@ pnpm add netlify-plugin-emsdk    # pnpm
 ```toml
 [[plugins]]
 package = "netlify-plugin-emsdk"
+
+[plugins.inputs]
+version = "6.0.9"
 ```
 
 ## License

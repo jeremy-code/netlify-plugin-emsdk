@@ -4,17 +4,17 @@ import { Writable } from "node:stream";
 
 import type { NetlifyPlugin } from "@netlify/build";
 
-const EMSDK_VERSION = "6.0.9";
-
 // https://github.com/emscripten-core/setup-emsdk/blob/0822153d7a5488b70a269cfa0a631b2a86ab4da2/src/matchers.ts#L2
 const ENV_REGEX = /(\S+)=(.+);/;
 
-type PluginInputs = {};
+type PluginInputs = {
+  version: string;
+};
 
 const plugin = {
-  onPreBuild: async ({ utils, netlifyConfig }): Promise<void> => {
+  onPreBuild: async ({ inputs, utils, netlifyConfig }): Promise<void> => {
     const response = await fetch(
-      `https://github.com/emscripten-core/emsdk/archive/${EMSDK_VERSION}.tar.gz`,
+      `https://github.com/emscripten-core/emsdk/archive/${inputs.version}.tar.gz`,
     );
 
     if (!response.ok || response.body === null) {
@@ -39,8 +39,8 @@ const plugin = {
     netlifyConfig.build.environment["EMSDK"] = emsdkFolder;
 
     await utils.run(`${emsdkFolder}/emsdk`, ["update"]);
-    await utils.run(`${emsdkFolder}/emsdk`, ["install", EMSDK_VERSION]);
-    await utils.run(`${emsdkFolder}/emsdk`, ["activate", EMSDK_VERSION]);
+    await utils.run(`${emsdkFolder}/emsdk`, ["install", inputs.version]);
+    await utils.run(`${emsdkFolder}/emsdk`, ["activate", inputs.version]);
 
     const env = await utils.run(`${emsdkFolder}/emsdk`, ["construct_env"]);
     if (env.stdout === "") {

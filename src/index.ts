@@ -13,28 +13,32 @@ type PluginInputs = {
 
 const plugin = {
   onPreBuild: async ({ inputs, utils, netlifyConfig }): Promise<void> => {
-    const response = await fetch(
-      `https://github.com/emscripten-core/emsdk/archive/${inputs.version}.tar.gz`,
-    );
+    const emsdkFolder = `/opt/buildhome/.emsdk-${inputs.version}`;
+    const cacheHit = await utils.cache.restore(emsdkFolder);
 
-    if (!response.ok || response.body === null) {
-      utils.build.failBuild("Could not fetch Emscripten");
+    if (!cacheHit) {
+      const response = await fetch(
+        `https://github.com/emscripten-core/emsdk/archive/${inputs.version}.tar.gz`,
+      );
+
+      if (!response.ok || response.body === null) {
+        utils.build.failBuild("Could not fetch Emscripten");
+      }
+
+      await response.body!.pipeTo(
+        Writable.toWeb(createWriteStream(`/tmp/.emsdk.tar.gz`)),
+      );
+      await mkdir(emsdkFolder, { recursive: true });
+      await utils.run("tar", [
+        "--extract",
+        "--file",
+        "/tmp/.emsdk.tar.gz",
+        "--directory",
+        emsdkFolder,
+        "--strip-components=1",
+      ]);
+      await utils.cache.save(emsdkFolder);
     }
-
-    await response.body!.pipeTo(
-      Writable.toWeb(createWriteStream(`/tmp/.emsdk.tar.gz`)),
-    );
-
-    const emsdkFolder = "/opt/buildhome/.emsdk";
-    await mkdir(emsdkFolder, { recursive: true });
-    await utils.run("tar", [
-      "--extract",
-      "--file",
-      "/tmp/.emsdk.tar.gz",
-      "--directory",
-      emsdkFolder,
-      "--strip-components=1",
-    ]);
 
     netlifyConfig.build.environment["EMSDK"] = emsdkFolder;
 

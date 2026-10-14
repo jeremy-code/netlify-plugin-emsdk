@@ -33,19 +33,19 @@
     "ci:publish": "./scripts/publish.sh"
   },
   "devDependencies": {
-    "@changesets/cli": "^3.0.1",
+    "@changesets/cli": "^3.0.3",
     "@netlify/build": "^36.4.2",
-    "@types/node": "^26.4.1",
-    "oxfmt": "^0.66.0",
-    "oxlint": "^1.81.0",
-    "oxlint-tsgolint": "^7.0.2001",
-    "tsdown": "^0.22.14",
+    "@types/node": "^26.6.5",
+    "oxfmt": "^0.72.0",
+    "oxlint": "^1.87.0",
+    "oxlint-tsgolint": "^7.0.2004",
+    "tsdown": "^0.23.1",
     "typescript": "^7.0.2"
   },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "11.24.0",
+      "version": "12.11.2",
       "onFail": "download"
     },
     "runtime": {

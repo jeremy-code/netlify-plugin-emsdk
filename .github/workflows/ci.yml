@@ -17,15 +17,13 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up pnpm package manager
-        uses: pnpm/setup@v2
+        uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
         with:
           cache: true
-
-      - name: Install dependencies
-        run: pnpm install
+          install: true
 
       - name: Check code formatting with Oxfmt
         run: pnpm run format:check

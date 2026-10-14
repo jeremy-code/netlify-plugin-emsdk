@@ -29,7 +29,8 @@
     "build": "tsdown",
     "lint": "oxlint",
     "format": "oxfmt",
-    "format:check": "oxfmt --check"
+    "format:check": "oxfmt --check",
+    "ci:publish": "./scripts/publish.sh"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.1",

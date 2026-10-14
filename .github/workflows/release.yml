@@ -39,7 +39,7 @@ jobs:
       - name: Create pull request for version bump and publish to npm
         uses: changesets/action@v2
         with:
-          publish-script: pnpm stage publish
+          publish-script: pnpm run ci:publish
           commit-message: "chore(release): version packages"
           pr-title: "chore(release): version packages"
           create-github-releases: true

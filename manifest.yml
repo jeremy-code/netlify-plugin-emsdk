@@ -4,4 +4,4 @@ inputs:
   - name: version
     description: Emscripten emsdk version to install
     required: false
-    default: "6.0.9"
+    default: "6.0.12"

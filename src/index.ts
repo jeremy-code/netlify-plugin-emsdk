@@ -1,5 +1,5 @@
 import { createWriteStream } from "node:fs";
-import { mkdir } from "node:fs/promises";
+import { mkdir, rm } from "node:fs/promises";
 import { Writable } from "node:stream";
 
 import type { NetlifyPlugin } from "@netlify/build";
@@ -26,7 +26,7 @@ const plugin = {
       }
 
       await response.body!.pipeTo(
-        Writable.toWeb(createWriteStream(`/tmp/.emsdk.tar.gz`)),
+        Writable.toWeb(createWriteStream("/tmp/.emsdk.tar.gz")),
       );
       await mkdir(emsdkFolder, { recursive: true });
       await utils.run("tar", [
@@ -37,6 +37,7 @@ const plugin = {
         emsdkFolder,
         "--strip-components=1",
       ]);
+      await rm("/tmp/.emsdk.tar.gz", { force: true });
     }
 
     netlifyConfig.build.environment["EMSDK"] = emsdkFolder;

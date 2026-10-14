@@ -62,6 +62,14 @@ const plugin = {
       }
     });
   },
+  onPostBuild: async ({ inputs, utils }): Promise<void> => {
+    const emsdkFolder = `/opt/buildhome/.emsdk-${inputs.version}`;
+    if (await utils.cache.has(emsdkFolder)) {
+      return;
+    }
+    const saved = await utils.cache.save(emsdkFolder);
+    console.log(saved ? "emsdk cache saved" : "emsdk cache NOT saved");
+  },
 } satisfies NetlifyPlugin<PluginInputs>;
 
 export default plugin;

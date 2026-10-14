@@ -42,7 +42,6 @@ const plugin = {
 
     netlifyConfig.build.environment["EMSDK"] = emsdkFolder;
 
-    await utils.run(`${emsdkFolder}/emsdk`, ["update"]);
     await utils.run(`${emsdkFolder}/emsdk`, ["install", inputs.version]);
 
     if (!cacheHit) {
